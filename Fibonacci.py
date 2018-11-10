@@ -7,7 +7,7 @@ class Fibonacci:
         self.high, self.low, = self.get_high_low()
         self.fib_23_6 = 0
         self.fib_38_2 = 0
-        self.fib_50 = 0
+        self.fib_50_0 = 0
         self.fib_61_8 = 0
         self.fib_76_4 = 0
         self.r_levels()
@@ -23,6 +23,6 @@ class Fibonacci:
         dif = dif.max()
         self.fib_23_6 = self.low.min() + dif * 0.236
         self.fib_38_2 = self.low.min() + dif * 0.382
-        self.fib_50 = self.low.min() + dif * 0.5
+        self.fib_50_0 = self.low.min() + dif * 0.5
         self.fib_61_8 = self.low.min() + dif * 0.618
         self.fib_76_4 = self.low.min() + dif * 0.764

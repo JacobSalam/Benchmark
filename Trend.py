@@ -1,0 +1,3 @@
+class Trend:
+    def __init__(self):
+
