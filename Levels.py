@@ -17,7 +17,7 @@ class Levels:
         elif self.F.fib_23_6 < v <= self.F.fib_38_2:
             return self.F.fib_23_6, self.F.fib_38_2, 23.6, 38.2
         elif self.F.fib_38_2 < v <= self.F.fib_50_0:
-            return self.F.fib_38_2, self.F.fib_50_0, 36.2, 50.0
+            return self.F.fib_38_2, self.F.fib_50_0, 38.2, 50.0
         elif self.F.fib_50_0 < v <= self.F.fib_61_8:
             return self.F.fib_50_0, self.F.fib_61_8, 50.0, 61.8
         elif self.F.fib_61_8 < v <= self.F.fib_76_4:
