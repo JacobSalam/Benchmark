@@ -32,10 +32,12 @@ class Trend:
                 result = 1, 1
             else:
                 result = 1, 0
+        elif min_diff is diff_with_upper:
+            result = 0, 1
         else:
-            result = 0, 3
+            result = 0, 0
 
-        if value[4] - self.update_lower >= self.threshold or self.update_upper - value[4] >= self.threshold:
+        if value[4] - self.update_lower >= self.threshold and self.update_upper - value[4] >= self.threshold:
             result = 2, 3
 
         return result

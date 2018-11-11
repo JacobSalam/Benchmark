@@ -5,17 +5,18 @@ class Trade:
         self.balance_EUR = balance_EUR
         self.balance_USD = balance_USD
         self.bound = bound
-        self.limit, self.stop_loss = self.buy_or_sell()
+        self.limit = self.buy_or_sell()
         # print(self.balance_USD, self.balance_EUR)
         # print("self.value", self.value)
         # print("self.limit", self.limit)
         # print("self.bound", self.bound)
 
     def buy_or_sell(self):
+        #print(self.balance_EUR, self.balance_USD)
         if self.bound == 0 and self.balance_USD > 0:
-            return self.value - 0.00001, self.value - 0.0003
+            #print("gets here")
+            return self.value - 0.00001
         elif self.bound == 1 and self.balance_EUR > 0:
-            print("gets here")
-            return self.value + 0.00001, self.value + 0.0003
+            return self.value + 0.00001
         else:
-            return 0, 0
+            return 0

@@ -20,20 +20,27 @@ for i in range(len(my_data)-420):
     fibonacci = Fib(window)
 
     if count == 5:
+        #print(trade_values.limit, window[-1][4], "efssssss")
         trade_values.limit = 0
-        trade_values.stop_loss = 0
+        level = L(fibonacci, window[-1])
+        count = 0
 
-    if trade_values is not None and trade_values.stop_loss != 0 and trade_values.limit == 0 and buy_sell is not None:
+    if trade_values is not None and trade_values.limit == 0 and buy_sell is not None and buy_sell.stop_loss[0] != 0:
         balance_EUR, balance_USD, activated = buy_sell.activate_stop_loss(window[-1][4])
+        #print("gets herrrreeeeee", activated)
         if activated:
-            trade_values.stop_loss = 0
+            print("Balance at iteration --> ", i, " Euro -> ", balance_EUR, " USD -> ", balance_USD)
+            #print(balance_EUR, balance_USD)
+
+            buy_sell.stop_loss = [0] * 2
 
     if trade_values and trade_values.limit != 0:
-        print(trade_values.limit)
-        buy_sell = BAS(window[-1], trade_values.limit, trade_values.stop_loss, balance_EUR, balance_USD)
+        #print(trade_values.limit, window[-1][4], "bhjf sfjf")
+        buy_sell = BAS(window[-1], trade_values.limit, balance_EUR, balance_USD)
 
         if balance_EUR == buy_sell.balance_EUR:
             count = count + 1
+            trend_array = []
         else:
             balance_EUR = buy_sell.balance_EUR
             balance_USD = buy_sell.balance_USD
@@ -42,7 +49,8 @@ for i in range(len(my_data)-420):
 
             count = 0
             trade_values.limit = 0
-            level = L(fibonacci, window[-1], )
+            level = L(fibonacci, window[-1])
+            #print(level.L1, level.L2)
             trend_array = []
 
     if i > 0:
@@ -50,7 +58,7 @@ for i in range(len(my_data)-420):
         level.lower = trend.update_lower
         level.upper = trend.update_upper
         check, bound = trend.check_thresh(window[-1])
-
+        #print(balance_USD)
         if check == 2:
             trend_array = []
         else:
@@ -59,11 +67,18 @@ for i in range(len(my_data)-420):
     if i is 0:
         level = L(fibonacci, window[-1])
 
+    #print(trend_array)
     if len(trend_array) >= 5:
-        if sum(trend_array[:5]) > 2:
+        if sum(trend_array[:5]) >= 2:
+            #print(bound, balance_EUR, balance_USD)
+            #print(window[-1][4])
             trade_values = T(window[-1], balance_EUR, balance_USD, bound)
-
-        trend_array = []
-        level = L(fibonacci, window[-1])
+            #print(trade_values.limit)
+            trend_array = []
+        elif sum(trend_array[:5]) < 2:
+            level = L(fibonacci, window[-1])
+            trend_array = []
+            #print(level.L1, level.L2)
+            #print(window[-1][4])
 
 print(i)
