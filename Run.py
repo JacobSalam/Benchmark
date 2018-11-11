@@ -1,6 +1,3 @@
-import numpy as np
-import csv
-import queue
 from numpy import genfromtxt
 from Fibonacci import Fibonacci as Fib
 from Trade import Trade as T
@@ -8,9 +5,6 @@ from Levels import Levels as L
 from Trend import Trend as TR
 from Buy_And_Sell import Buy_And_Sell as BAS
 
-
-#with open("EURUSD_Candlestick_1_M_BID_01.10.2018-31.10.2018.csv", 'r') as csvfile:
- #   reader = np.array(csv.reader(csvfile))
 
 my_data = genfromtxt("EURUSD_Candlestick_1_M_BID_01.10.2018-31.10.2018.csv", delimiter=',')
 trend_array = []
@@ -22,7 +16,7 @@ count = 0
 buy_sell = None
 
 
-for i in range(1000000):
+for i in range(len(my_data)-240):
     window = my_data[i:240+i]
     fibonacci = Fib(window)
     if count == 5:
@@ -35,14 +29,15 @@ for i in range(1000000):
             trade_values.stop_loss = 0
 
     if trade_values and trade_values.limit != 0:
-        buy_sell = BAS(window[-1], trade_values.limit, trade_values.stop_loss, balance_EUR, balance_EUR)
+        buy_sell = BAS(window[-1], trade_values.limit, trade_values.stop_loss, balance_EUR, balance_USD)
+
         if balance_EUR == buy_sell.balance_EUR:
             count = count + 1
         else:
             balance_EUR = buy_sell.balance_EUR
             balance_USD = buy_sell.balance_USD
+            print("Balance at iteration --> ", i, " Euro -> ", balance_EUR, " USD -> ", balance_USD)
 
-            print(balance_EUR, balance_USD)
             count = 0
             trade_values.limit = 0
             level = L(fibonacci, window[-1], )
@@ -63,20 +58,8 @@ for i in range(1000000):
 
     if len(trend_array) >= 3:
         if sum(trend_array[:3]) > 1:
-            print((window[-1], balance_EUR, balance_USD, bound))
             trade_values = T(window[-1], balance_EUR, balance_USD, bound)
             trend_array = []
         else:
             level = L(fibonacci, window[-1], )
             trend_array = []
-
-
-print(balance_EUR, balance_USD)
-
-
-
-
-
-
-
-

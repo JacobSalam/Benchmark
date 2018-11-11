@@ -7,10 +7,8 @@ class Levels:
         self.under_lower = False
         self.over_upper = False
 
-
     def detect_levels(self):
         v = self.value[4]
-        print(v)
 
         if self.F.low.min() < v <= self.F.fib_23_6:
             return  self.F.low.min(), self.F.fib_23_6, 0, 23.6

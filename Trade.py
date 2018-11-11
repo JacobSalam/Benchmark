@@ -12,7 +12,5 @@ class Trade:
             return self.value - 0.00004, self.value - 0.0003
         elif self.bound == 1 and self.balance_USD > 0:
             return self.value + 0.00004, self.value + 0.0003
-
-
-
-
+        else:
+            return 0, 0
