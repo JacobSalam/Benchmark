@@ -11,7 +11,7 @@ class Levels:
         v = self.value[4]
 
         if self.F.low.min() < v <= self.F.fib_23_6:
-            return  self.F.low.min(), self.F.fib_23_6, 0, 23.6
+            return self.F.low.min(), self.F.fib_23_6, 0, 23.6
         elif self.F.fib_23_6 < v <= self.F.fib_38_2:
             return self.F.fib_23_6, self.F.fib_38_2, 23.6, 38.2
         elif self.F.fib_38_2 < v <= self.F.fib_50_0:

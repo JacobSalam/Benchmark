@@ -8,17 +8,17 @@ class Buy_And_Sell:
         self.balance_EUR, self.balance_USD, self.lower = self.calculate_new_balance()
 
     def calculate_new_balance(self):
-        if self.balance_EUR != 0 and self.value <= self.limit:
-            return 0, self.limit * self.balance_EUR, True
-        elif self.balance_USD != 0 and self.value >= self.limit:
-            return self.balance_USD * (1 / self.limit), 0, True
+        if self.balance_USD != 0 and self.value <= self.limit:
+            return self.balance_USD / self.limit, 0, True
+        elif self.balance_EUR != 0 and self.value >= self.limit:
+            return 0, self.balance_EUR * self.limit, True
         else:
             return self.balance_EUR, self.balance_USD, False
 
     def activate_stop_loss(self, val):
         if self.lower and val < self.stop:
-            return self.balance_USD * (1 / self.stop), 0, True
+            return 0, self.balance_EUR * self.stop, True
         elif not self.lower and val > self.stop:
-            return 0, self.stop * self.balance_EUR, True
+            return self.balance_USD / self.stop, 0, True
         else:
             return self.balance_EUR, self.balance_USD, False
